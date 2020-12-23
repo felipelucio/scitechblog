@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        {% if article.headerimage %}
+        <img class="img-fluid mx-auto d-block rounded" src="{{ SITEURL }}/{{ article.headerimage }}" alt="{{ article.headerimage_alt }}" />
+        {% endif %}
+        <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+        <h6>
+            Publicado em <time datetime="{{ article.date.strftime('%Y-%m-%d %H:%M:%S') }}">{{ article.locale_date }}</time>
+            &bull;
+            <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+        </h6>
+        <div class="d-flex flex-row align-content-center align-items-center justify-content-end">
+            <div class="me-1" style="font-size: 0.8em;">Compartilhar</div>
+            <a class="badge bg-primary me-1" href="https://www.facebook.com/sharer/sharer.php?u={{ SITEURL }}/{{ article.url }}" 
+                onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" 
+                target="_blank" class="uk-button uk-visible-small"
+            >
+                <span><i class="gg-facebook"></i></span>
+            </a>
+            <a class="badge bg-info me-1" href="https://twitter.com/intent/tweet?text={{ article.title|striptags|urlencode }}&url={{ SITEURL }}/{{ article.url }}&via={{ TWITTER_USERNAME }}" 
+                onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" 
+                class="uk-button uk-visible-small" target="_blank"
+            >
+                <span><i class="gg-twitter"></i></span>
+            </a>
+        </div>
+        <p>{{ article.summary|striptags }}</p>
+        <div>{{ article.content }}</div>
+    </div>
+</div>
+{% endblock %}
